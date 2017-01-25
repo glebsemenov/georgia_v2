@@ -152,102 +152,41 @@
     <div class="row">
       <div id="portfolioSlider">
         <ul class="slides">
-          <li>
-            <div class="col-md-4 wp4">
-              <div class="custom-card">
-                <div class="delay-{{ number_format( ((0 % 3) / 2), 0, '.', '') }}s">
-                  <div class="overlay-effect effects clearfix">
-                    <div class="img">
-                      <img src="img/portfolio-02.jpg" alt="Portfolio Item">
-                      <div class="overlay">
-                        <a href="#" class="expand"><i class="fa fa-search"></i><br>Детальный обзор</a>
-                        <a class="close-overlay hidden">x</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="hotel-name">Hotel name</div>
-                  <div class="hotel-stars">
-                    <i style="color: orange;" class="fa fa-star"></i>
-                    <i style="color: orange;" class="fa fa-star"></i>
-                    <i style="color: orange;" class="fa fa-star"></i>
-                    <i style="color: orange;" class="fa fa-star-o"></i>
-                    <i style="color: orange;" class="fa fa-star-o"></i>
-                  </div>
-                  <div class="hotel-location">
-                    <h4>City, Country</h4>
-                    <p>Great hotel</p>
-                  </div>
-                  <div class="hotel-actions">
-                    <p>номера от 4000р</p>
-                  </div>
-                  <a href="#" class="hvr-shutter-out-horizontal">Детальный обзор</a>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-md-4 wp4">
-              <div class="custom-card">
-                <div class="delay-{{ number_format( ((1 % 3) / 2), 0, '.', '') }}s">
-                  <div class="overlay-effect effects clearfix">
-                    <div class="img">
-                      <img src="img/portfolio-02.jpg" alt="Portfolio Item">
-                      <div class="overlay">
-                        <a href="#" class="expand"><i class="fa fa-search"></i><br>Детальный обзор</a>
-                        <a class="close-overlay hidden">x</a>
+          @for( $i = 0, $counter = 0; $i < $config['bestOfferSlidesCount']; ++$i )
+              <?php if( ! ( $i % 3 ) ) echo '<li>'; ?>
+                <div class="col-md-4 wp4">
+                  <div class="custom-card">
+                    <div class="delay-{{ \App\Http\Controllers\IndexController::calculateDelay( $counter ) }}s">
+                      <div class="overlay-effect effects clearfix">
+                        <div class="img">
+                          <img src="img/portfolio-02.jpg" alt="Portfolio Item">
+{{--                          <img src="{{ $hotels[$i]->photo }}" alt="Portfolio Item">--}}
+                          <div class="overlay">
+                            <a href="#" class="expand"><i class="fa fa-search"></i><br>Детальный обзор</a>
+                            <a class="close-overlay hidden">x</a>
+                          </div>
+                        </div>
                       </div>
+                      <div class="hotel-name">{{ ( App::isLocale( 'en' ) ? $hotels[$i]->name_en : $hotels[$i]->name_ru ) }}</div>
+                      <div class="hotel-stars">
+                        @for( $j = 1; $j < 6; ++$j )
+                          <i style="color: orange;" class="fa fa-star{{ ( $j > $hotels[$i]->stars ) ? '-o': '' }}"></i>
+                        @endfor
+                      </div>
+                      <div class="hotel-location">
+                        <h4>{{ ( App::isLocale( 'en' ) ? $hotels[$i]->city->title_en : $hotels[$i]->city->title_ru ) }}, {{ ( App::isLocale( 'en' ) ? $hotels[$i]->city->country->title_en : $hotels[$i]->city->country->title_ru ) }}</h4>
+                        <p>Great hotel</p>
+                      </div>
+                      <div class="hotel-actions">
+                        <p>номера от 4000р</p>
+                      </div>
+                      <a href="#" class="hvr-shutter-out-horizontal">Детальный обзор</a>
                     </div>
                   </div>
-                  <div class="hotel-name">Hotel name</div>
-                  <div class="hotel-stars">
-                  <i style="color: orange;" class="fa fa-star"></i>
-                  <i style="color: orange;" class="fa fa-star"></i>
-                  <i style="color: orange;" class="fa fa-star"></i>
-                  <i style="color: orange;" class="fa fa-star-o"></i>
-                  <i style="color: orange;" class="fa fa-star-o"></i>
-                  </div>
-                  <div class="hotel-location">
-                    <h4>City, Country</h4>
-                    <p>Great hotel</p>
-                  </div>
-                  <div class="hotel-actions">
-                    <p>номера от 4000р</p>
-                  </div>
-                  <a href="#" class="hvr-shutter-out-horizontal">Детальный обзор</a>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 wp4">
-              <div class="custom-card">
-                <div class="delay-{{ number_format( ((2 % 3) / 2), 0, '.', '') }}s">
-                  <div class="overlay-effect effects clearfix">
-                    <div class="img">
-                      <img src="img/portfolio-02.jpg" alt="Portfolio Item">
-                      <div class="overlay">
-                        <a href="#" class="expand"><i class="fa fa-search"></i><br>Детальный обзор</a>
-                        <a class="close-overlay hidden">x</a>
-                      </div>
-                    </div>
-                  </div>
-            <div class="hotel-name">Hotel name</div>
-                  <div class="hotel-stars">
-                    <i style="color: orange;" class="fa fa-star"></i>
-                    <i style="color: orange;" class="fa fa-star"></i>
-                    <i style="color: orange;" class="fa fa-star"></i>
-                    <i style="color: orange;" class="fa fa-star-o"></i>
-                    <i style="color: orange;" class="fa fa-star-o"></i>
-                  </div>
-                  <div class="hotel-location">
-                    <h4>City, Country</h4>
-                    <p>Great hotel</p>
-                  </div>
-                  <div class="hotel-actions">
-                    <p>номера от 4000р</p>
-                  </div>
-                  <a href="#" class="hvr-shutter-out-horizontal">Детальный обзор</a>
-                </div>
-              </div>
-            </div>
+              <?php if( ! ( ($i + 1) % 3 ) ) echo '</li>'; ?>
+           @endfor
           </li>
         </ul>
       </div>

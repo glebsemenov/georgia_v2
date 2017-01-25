@@ -17,11 +17,14 @@ class CreateHotelsTable extends Migration
 		{
 			$table->increments( 'id' );
 
-			$table->string( 'name', 32 );
+			$table->string( 'name_ru', 32 );
+			$table->string( 'name_en', 32 );
 			$table->tinyInteger( 'stars' );
-			$table->string( 'address', 32 );
+			$table->string( 'address_ru', 32 );
+			$table->string( 'address_en', 32 );
 			$table->string( 'website', 32 );
 			$table->string( 'email', 32 );
+			$table->string( 'photo' )->default( '/img/default/no_property_photo.jpg' );
 			$table->integer( 'rating_hotel' )->default( 0 );
 			$table->integer( 'rating_restaurant' )->default( 0 );
 			$table->integer( 'rating_service' )->default( 0 );
@@ -30,7 +33,8 @@ class CreateHotelsTable extends Migration
 			$table->integer( 'rating_breakfast' )->default( 0 );
 			$table->integer( 'rating_comfort' )->default( 0 );
 			$table->integer( 'rating_room_avg' )->default( 0 ); // average room rating
-			$table->text( 'description' )->nullable();
+			$table->text( 'description_ru' )->nullable();
+			$table->text( 'description_en' )->nullable();
 			$table->string( 'languages' )->nullable();
 
 			$table->time( 'check_in' )->nullable();

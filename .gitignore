@@ -2,12 +2,5 @@
 /public/storage
 /vendor
 /.idea
-!storage/foundation/.gitkeep
 .DS_Store
 composer.lock
-storage/api-docs/
-storage/tmp-files/
-worker.log
-worker.log.1
-worker.log.2
-worker.log.3

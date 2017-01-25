@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Foundation\Hotel\HotelHandler;
-use Illuminate\Http\Request;
+use App\Models\Hotel;
+
+define( 'BEST_OFFER_NUMBER', 10 );
 
 class IndexController extends Controller
 {
 	public function index()
 	{
+		$hotels = Hotel::all();
+		$count = count( $hotels );
+
 		$config = [
-			'appName' => 'test name'
+			'applicationName'      => 'Welcome to Georgia',
+			'bestOfferSlidesCount' => ( ( $count > BEST_OFFER_NUMBER) ? BEST_OFFER_NUMBER : $count )
 		];
 
-		$hotelHandler = new HotelHandler();
-		$hotels = $hotelHandler->get();
+		return view( 'index', array(
+			'config' => $config,
+			'hotels' => $hotels
+		) );
+	}
 
-		return view( 'index', compact( 'config', 'hotels' ) );
+	public static function calculateDelay( int & $counter )
+	{
+		return number_format( ( ( $counter++ % 3 ) / 2 ), 0, '.', '' );
 	}
 }
