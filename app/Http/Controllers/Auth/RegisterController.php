@@ -2,70 +2,45 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+	use RegistersUsers;
 
-    use RegistersUsers;
+	protected $redirectTo = '/home';
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+	public function __construct()
+	{
+		$this->middleware( 'guest' );
+	}
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+	protected function validator( array $data )
+	{
+		return Validator::make( $data, [
+			'email'    => 'required|email|max:32|unique:users',
+			'password' => 'required|min:6|max:15',
+			'fname'    => 'required|min:3|max:32',
+			'lname'    => 'required|min:3|max:32',
+		] );
+	}
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
-    }
+	protected function create( array $data )
+	{
+		$user = new User();
+		$user->fname = $data[ 'fname' ];
+		$user->lname = $data[ 'lname' ];
+		$user->birthday = Carbon::createFromDate( $data[ 'year' ], $data[ 'month' ], $data[ 'day' ], 'Europe/Kiev' );
+		$user->email = $data[ 'email' ];
+		$user->gender_id = $data[ 'gender_id' ];
+		$user->user_type_id = $data[ 'user_type_id' ];
+		$user->password = bcrypt( $data[ 'password' ] );
+		$user->save();
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
+		return $user;
+	}
 }

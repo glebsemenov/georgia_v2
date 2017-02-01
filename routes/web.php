@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get( '/', 'IndexController@index' );
 
 Auth::routes();
 
-Route::get('/send', 'EmailController@send');
+Route::get( '/send', 'EmailController@send' );
+
+Route::get( '/home', 'HomeController@index' );
+
+Route::get( '/hotel/{id}', 'HotelController@show' );

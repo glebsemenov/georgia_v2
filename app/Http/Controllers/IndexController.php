@@ -15,7 +15,7 @@ class IndexController extends Controller
 
 		$config = [
 			'applicationName'      => 'Welcome to Georgia',
-			'bestOfferSlidesCount' => ( ( $count > BEST_OFFER_NUMBER) ? BEST_OFFER_NUMBER : $count )
+			'bestOfferSlidesCount' => ( ( $count > BEST_OFFER_NUMBER ) ? BEST_OFFER_NUMBER : $count )
 		];
 
 		return view( 'index', array(

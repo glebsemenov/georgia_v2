@@ -8,9 +8,8 @@ class DatabaseSeeder extends Seeder
 	{
 		$this->call( UserTypesSeeder::class );
 		$this->call( PropertyTypesSeeder::class );
+		$this->call( GendersSeeder::class );
 		$this->call( TestCountriesSeeder::class );
 		$this->call( TestCitiesSeeder::class );
-		$this->call( TestUsersSeeder::class );
-		$this->call( TestHotelsSeeder::class );
 	}
 }

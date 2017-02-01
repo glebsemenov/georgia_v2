@@ -1,0 +1,30 @@
+body {
+    font-family: "Cormorant SC";
+}
+.social-i {
+    color: gainsboro;
+    border: 1px solid gainsboro;
+    border-radius: 50%;
+}
+.social-i:hover {
+    color: orangered;
+    border-color: orangered;
+    transition: 0.5s;
+}
+.title {
+    font-size: 32px;
+    font-family: "Poiret One"
+}
+.uk-inline {
+    width: 100%;
+}
+.signin-btn {
+    font-family: "Cormorant SC";
+    font-size: 12px;
+    margin-right: 15px
+}
+.error-label {
+    font-family: Arial;
+    font-size: 12px;
+    color: orangered;
+}
