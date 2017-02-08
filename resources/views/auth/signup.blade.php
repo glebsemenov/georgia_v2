@@ -24,14 +24,14 @@
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="/">{{ trans('signup.backToIndex') }}</a></li> {{-- Insert logo instead of text --}}
+            <li class="uk-active"><a style="font-family: Cormorant SC" href="/">{{ trans('signup.backToIndex') }}</a></li> {{-- Insert logo instead of text --}}
         </ul>
     </div>
 
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
             <li class="uk-active">
-                <a href="/signin"><button class="uk-button uk-button-primary signin-btn" style="margin-right: 15px">{{ trans('signup.signInButtonContent') }}</button></a>
+                <a href="/signin"><button class="uk-button uk-button-primary signin-btn">{{ trans('signup.signInButtonContent') }}</button></a>
             </li>
         </ul>
     </div>
@@ -99,7 +99,7 @@
                         <div>
                             <div class="uk-inline">
                                 <span class="uk-form-icon uk-form-icon-flip"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                                <input class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}" id="form-horizontal-text" name="password" type="text" pattern=".{6,15}" required>
+                                <input class="uk-input{{ $errors->has('password') ? ' uk-form-danger' : '' }}" id="form-horizontal-text" name="password" type="text" pattern=".{6,15}" required>
                             </div>
                             @if( $errors->has('password') )
                                 <span class="error-label">{{ $errors->first('password') }}</span>
@@ -135,7 +135,7 @@
                                 <div class="uk-width-1-2@s">
                                     <div class="uk-inline">
                                         <span class="uk-form-icon uk-form-icon-flip"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                                        <input class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}" id="form-horizontal-text" name="fname" type="text" placeholder="имя" required>
+                                        <input class="uk-input{{ $errors->has('fname') ? ' uk-form-danger' : '' }}" id="form-horizontal-text" name="fname" type="text" placeholder="имя" required>
                                     </div>
                                     @if( $errors->has('fname') )
                                         <span class="error-label">{{ $errors->first('fname') }}</span>
@@ -144,7 +144,7 @@
                                 <div class="uk-width-1-2@s">
                                     <div class="uk-inline">
                                         <span class="uk-form-icon uk-form-icon-flip"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                                        <input class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}" id="form-horizontal-text" name="lname" type="text" placeholder="фамилия" required>
+                                        <input class="uk-input{{ $errors->has('lname') ? ' uk-form-danger' : '' }}" id="form-horizontal-text" name="lname" type="text" placeholder="фамилия" required>
                                     </div>
                                     @if( $errors->has('lname') )
                                         <span class="error-label">{{ $errors->first('lname') }}</span>

@@ -8,80 +8,71 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ trans('index.title') }}</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Cormorant+SC|Kurale|Poiret+One|Arsenal" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/uikit.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/property/styles.css" rel="stylesheet">
 
-<!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode( [
-			'csrfToken' => csrf_token(),
-		] ); ?>
-    </script>
+    <!-- Scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/uikit.min.js"></script>
+    <script>window.Laravel = <?php echo json_encode( [ 'csrfToken' => csrf_token(), ] ); ?></script>
 </head>
 <body>
-<div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a class="navbar-brand" style="font-family: Cormorant SC" href="{{ url('/') }}">Вернуться на главную</a></li> {{-- todo: Insert logo instead of text --}}
+        </ul>
+    </div>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/signout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                       Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ url('/signout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            @if( Auth::guest() )
+                <li class="uk-active">
+                    <a href="/signup">
+                        <button class="uk-button uk-button-primary nav-font">{{ trans('signup.signUpButtonContent') }}</button>
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a href="#">{{ Auth::user()->email }}</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            @if( \App\Http\Controllers\PropertyController::isUserHasProperty( Auth::user()->id ) )
+                                <li class="uk-active">
+                                    <a href="{{ url('/property/manage') }}"> Управление отелем</a>
                                 </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+                            @elseif( Auth::user()->user_type_id == 2 )
+                                <li class="uk-active">
+                                    <a href="{{ url('/property/register') }}"> Добавить отель</a>
+                                </li>
+                            @endif
+                            <li class="uk-active">
+                                <a href="{{ url('/signout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Выйти
+                                </a>
 
-    @yield('content')
-</div>
+                                <form id="logout-form" action="{{ url('/signout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+        </ul>
+    </div>
+</nav>
 
-<!-- Scripts -->
-<script src="/js/app.js"></script>
+@yield('content')
+
 </body>
 </html>

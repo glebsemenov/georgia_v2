@@ -11,5 +11,8 @@ class DatabaseSeeder extends Seeder
 		$this->call( GendersSeeder::class );
 		$this->call( TestCountriesSeeder::class );
 		$this->call( TestCitiesSeeder::class );
+		$this->call( TestHotelsSeeder::class );
+		$this->call( TestRoomTypesSeeder::class );
+		$this->call( TestRoomsSeeder::class );
 	}
 }

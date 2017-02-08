@@ -10,9 +10,17 @@ class TestHotelsSeeder extends Seeder
 		for ($i = 0; $i < 10; ++$i)
 		{
 			$hotel = new Hotel();
-			$hotel->property_type_id = 1;
+			$hotel->property_type_id = rand(1,13);
 			$hotel->owner_id = 1;
 			$hotel->city_id = 1;
+			$hotel->rating_hotel = rand(1, 10);
+			$hotel->rating_restaurant = rand(1, 10);
+			$hotel->rating_service = rand(1, 10);
+			$hotel->rating_cost_service = rand(1, 10);
+			$hotel->rating_location = rand(1, 10);
+			$hotel->rating_breakfast = rand(1, 10);
+			$hotel->rating_comfort = rand(1, 10);
+			$hotel->rating_room_avg = rand(1, 10);
 			$hotel->description_en = 'Description ' . $i;
 			$hotel->description_ru = 'Описание ' . $i;
 			$hotel->email = 'e@ma.il ' . $i;

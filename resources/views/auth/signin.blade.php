@@ -24,7 +24,7 @@
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="/">{{ trans('signup.backToIndex') }}</a></li> {{-- Insert logo instead of text --}}
+            <li class="uk-active"><a style="font-family: Cormorant SC" href="/">{{ trans('signup.backToIndex') }}</a></li> {{-- Insert logo instead of text --}}
         </ul>
     </div>
 

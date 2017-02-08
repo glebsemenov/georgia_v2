@@ -57,6 +57,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 text-center">
                     <a href="/signup" class="learn-more-btn">{{ trans('index.btn_gotoProfilePage') }}</a>
+                    <a href="/properties" class="learn-more-btn">Подобрать отель</a>
                 </div>
             </div>
         </div>
@@ -168,10 +169,10 @@
                                 <div class="delay-{{ \App\Http\Controllers\IndexController::calculateDelay( $counter ) }}s">
                                     <div class="overlay-effect effects clearfix">
                                         <div class="img">
-                                            <img src="img/portfolio-02.jpg" alt="Portfolio Item">
-                                            {{--                          <img src="{{ $hotels[$i]->photo }}" alt="Portfolio Item">--}}
+                                            {{--<img src="img/portfolio-02.jpg" alt="Portfolio Item">--}}
+                                            <img src="{{ $hotels[$i]->photo }}" alt="Portfolio Item">
                                             <div class="overlay">
-                                                <a href="#" class="expand"><i class="fa fa-search"></i><br>Детальный
+                                                <a href="/hotel/{{ $hotels[$i]->id }}" class="expand"><i class="fa fa-search"></i><br>Детальный
                                                     обзор</a>
                                                 <a class="close-overlay hidden">x</a>
                                             </div>
@@ -208,7 +209,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <a href="#" class="ignite-btn">Полный перечень отелей</a>
+                <a href="/properties" class="ignite-btn">Полный перечень отелей</a>
             </div>
         </div>
     </div>

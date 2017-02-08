@@ -17,6 +17,12 @@ Auth::routes();
 
 Route::get( '/send', 'EmailController@send' );
 
-Route::get( '/home', 'HomeController@index' );
+Route::get( '/properties', 'PropertyController@index' );
+
+Route::get( '/property/register', 'PropertyController@showRegisterForm' )->middleware('auth');;
+Route::get( '/property/manage', 'PropertyController@manage' )->middleware('auth');;
+Route::post( '/property/register', 'PropertyController@register' )->middleware('auth');;
+
+Route::get( '/account', 'AccountController@index' );
 
 Route::get( '/hotel/{id}', 'HotelController@show' );
