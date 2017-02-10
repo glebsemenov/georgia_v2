@@ -56,7 +56,13 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 text-center">
-                    <a href="/signup" class="learn-more-btn">{{ trans('index.btn_gotoProfilePage') }}</a>
+                    @if( Auth::guest() )
+                        <a href="/signup" class="learn-more-btn">{{ trans('index.btn_gotoProfilePage') }}</a>
+                    @elseif( \App\Http\Controllers\PropertyController::isUserHasProperty( Auth::user()->id ) )
+                        <a href="{{ '/hotel/' . \App\Http\Controllers\PropertyController::getUserProperty( Auth::user()->id ) }}" class="learn-more-btn">
+                            Управление отелем
+                        </a>
+                    @endif
                     <a href="/properties" class="learn-more-btn">Подобрать отель</a>
                 </div>
             </div>

@@ -47,7 +47,7 @@
                         <ul class="uk-nav uk-navbar-dropdown-nav">
                             @if( \App\Http\Controllers\PropertyController::isUserHasProperty( Auth::user()->id ) )
                                 <li class="uk-active">
-                                    <a href="{{ url('/property/manage') }}"> Управление отелем</a>
+                                    <a href="{{ '/hotel/' . \App\Http\Controllers\PropertyController::getUserProperty( Auth::user()->id ) }}"> Управление отелем</a>
                                 </li>
                             @elseif( Auth::user()->user_type_id == 2 )
                                 <li class="uk-active">

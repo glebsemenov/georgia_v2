@@ -21,6 +21,8 @@ Route::get( '/properties', 'PropertyController@index' );
 
 Route::get( '/property/register', 'PropertyController@showRegisterForm' )->middleware('auth');;
 Route::get( '/property/manage', 'PropertyController@manage' )->middleware('auth');;
+Route::get( '/property/room/{id}', 'PropertyController@showAddRoomForm' )->middleware('auth');;
+Route::post( '/property/room', 'PropertyController@addRoom' )->middleware('auth');;
 Route::post( '/property/register', 'PropertyController@register' )->middleware('auth');;
 
 Route::get( '/account', 'AccountController@index' );

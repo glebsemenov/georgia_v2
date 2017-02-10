@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\RoomType;
 use DB;
 use Auth;
 use App\Models\City;
@@ -143,7 +144,7 @@ class PropertyController extends Controller
 		return $children;
 	}
 
-	public static function getAverageRating( \stdClass $hotel )
+	public static function getAverageRating( $hotel )
 	{
 		return round( ( $hotel->rating_hotel + $hotel->rating_restaurant + $hotel->rating_service + $hotel->rating_cost_service +
 				$hotel->rating_location + $hotel->rating_breakfast + $hotel->rating_comfort + $hotel->rating_room_avg ) / 8, 1 );
@@ -188,8 +189,33 @@ class PropertyController extends Controller
 		return ! empty( DB::select( $sql, $params ) );
 	}
 
+	public static function getUserProperty( int $userID )
+	{
+		$sql = 'SELECT id FROM `hotels` WHERE owner_id = ?';
+		$params = array( $userID );
+
+		$result = DB::select( $sql, $params );
+		return ! empty( $result ) ? $result[0]->id : -1;
+	}
+
 	public function manage()
 	{
 
+	}
+
+	public function showAddRoomForm( int $id )
+	{
+		$roomTypes = RoomType::all();
+
+		return view( 'property.add_room', compact( 'id', 'roomTypes' ) );
+	}
+
+	public function addRoom( Request $request )
+	{
+		$handler = new PropertyHandler( 'hotel' );
+
+		return $handler->getInstance()->addRoom( $request )
+			? redirect()->back()->with( 'success', [ 'Комната была успешно создана.' ] )
+			: redirect()->back()->with( 'failure', [ 'Ошибка. Что-то пошло не так...' ] );
 	}
 }

@@ -2,7 +2,9 @@
 
 use Auth;
 use Validator;
+use App\Models\Room;
 use App\Models\Hotel;
+use App\Models\RoomPhoto;
 use Illuminate\Http\Request;
 
 class HotelHandler
@@ -45,6 +47,40 @@ class HotelHandler
 		$hotel->photo = '/img/hotels/' . $imageName;
 
 		return $hotel->save();
+	}
+
+	public function addRoom( Request $request )
+	{
+		$validator = Validator::make( $request->all(), $this->rules );
+
+		if( $validator->fails() )
+			return redirect()->back()->withErrors( $validator )->withInput();
+
+		$room = new Room();
+
+		$room->price = $request->input( 'price' );
+		$room->count = $request->input( 'count' );
+		$room->number_of_rooms = $request->input( 'number_of_rooms' );
+		$room->description_ru = $request->input( 'description_ru' );
+		$room->description_en = $request->input( 'description_en' );
+		$room->room_type_id = $request->input( 'room_type_id' );
+		$room->hotel_id = $request->input( 'hotel_id' );
+		$result = $room->save();
+
+		$files = $request->file( 'images' );
+		foreach( $files as $file )
+		{
+			$destinationPath = base_path() . '/public/img/hotels/' . $request->input( 'hotel_id' ) . '/rooms/';
+			$filename = $file->getClientOriginalName();
+			$file->move( $destinationPath, $filename );
+
+			$photo = new RoomPhoto();
+			$photo->photo = '/img/hotels/' . $request->input( 'hotel_id' ) . '/rooms/' . $filename;
+			$photo->room_id = $room->id;
+			$photo->save();
+		}
+
+		return $result;
 	}
 
 	private function attachOptions( array $input, Hotel & $hotel )
