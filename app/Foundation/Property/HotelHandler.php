@@ -1,5 +1,6 @@
 <?php namespace App\Foundation\Property;
 
+use App\Models\BookRequest;
 use Auth;
 use Validator;
 use App\Models\Room;
@@ -23,7 +24,10 @@ class HotelHandler
 		$validator = Validator::make( $request->all(), $this->rules );
 
 		if( $validator->fails() )
-			return redirect()->back()->withErrors( $validator )->withInput();
+			return array(
+				'success' => FALSE,
+				'message' => $validator->getMessageBag()->first()
+			);
 
 		$hotel = new Hotel();
 
@@ -46,16 +50,16 @@ class HotelHandler
 		$request->file( 'image' )->move( base_path() . '/public/img/hotels/', $imageName );
 		$hotel->photo = '/img/hotels/' . $imageName;
 
-		return $hotel->save();
+		$result = array(
+			'success' => $hotel->save(),
+			'id'      => $hotel->id
+		);
+
+		return $result;
 	}
 
 	public function addRoom( Request $request )
 	{
-		$validator = Validator::make( $request->all(), $this->rules );
-
-		if( $validator->fails() )
-			return redirect()->back()->withErrors( $validator )->withInput();
-
 		$room = new Room();
 
 		$room->price = $request->input( 'price' );
@@ -65,7 +69,10 @@ class HotelHandler
 		$room->description_en = $request->input( 'description_en' );
 		$room->room_type_id = $request->input( 'room_type_id' );
 		$room->hotel_id = $request->input( 'hotel_id' );
-		$result = $room->save();
+		$result = array(
+			'success' => $room->save(),
+			'id'      => $room->hotel_id
+		);
 
 		$files = $request->file( 'images' );
 		foreach( $files as $file )
@@ -94,5 +101,25 @@ class HotelHandler
 			if( in_array( $key, $options ) )
 				$hotel->{$key} = 1;
 		}, $input );
+	}
+
+	public function bookRoom( Request $request )
+	{
+		$bookRequest = new BookRequest();
+
+		$bookRequest->email = $request->input( 'email' );
+		$bookRequest->date_from = $request->input( 'date_from' );
+		$bookRequest->date_to = $request->input( 'date_to' );
+		$bookRequest->adults = $request->input( 'adults' );
+		$bookRequest->children = $request->input( 'children' );
+		$bookRequest->comment = $request->input( 'comment' );
+		$bookRequest->room_id = $request->input( 'room_id' );
+
+		$result = array(
+			'success' => $bookRequest->save(),
+			'id'      => $request->input( 'room_id' )
+		);
+
+		return $result;
 	}
 }

@@ -126,9 +126,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="hotel-prices">
-                Цены от ${{ $lowestPrice }} за ночь
-            </div>
+            @if( isset( $lowestPrice ) )
+                <div class="hotel-prices">
+                    Цены от ${{ $lowestPrice }} за ночь
+                </div>
+            @endif
         </div>
     </div>
 </div>
@@ -172,7 +174,83 @@
                                         </div>
                                         <hr class="uk-divider-icon">
                                         <div>
-                                            <button class="uk-button uk-button-primary book-btn">Забронировать</button>
+                                            <a class="uk-button uk-button-primary book-btn" href="#modal-sections{{ $room->id }}" uk-toggle>Забронировать</a>
+
+                                            <div id="modal-sections{{ $room->id }}" uk-modal="center: true">
+                                                <div class="uk-modal-dialog">
+                                                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                                                    <div class="uk-modal-header">
+                                                        <h2 class="uk-modal-title" style="font-size: 18px;text-align: center">Бронирование комнаты</h2>
+                                                    </div>
+                                                    <div class="uk-modal-body">
+                                                        <form method="POST" action="{{ url('/property/book') }}">
+                                                            {{ csrf_field() }}
+                                                            <input type="hidden" value="{{ $room->id }}" name="room_id">
+                                                            <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+                                                                <div>
+                                                                    <div class="uk-margin">
+                                                                        <label class="uk-form-label" for="form-stacked-text">Заезд</label>
+                                                                        <div class="uk-form-controls">
+                                                                            <input name="date_from" class="uk-input uk-form-small" style="font-family: 'Roboto', sans-serif;font-size: 13px;" type="date" id="myDate" value="2017-02-03">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="uk-margin">
+                                                                        <label class="uk-form-label" for="form-stacked-text">Выезд</label>
+                                                                        <div class="uk-form-controls">
+                                                                            <input name="date_to" class="uk-input uk-form-small" style="font-family: 'Roboto', sans-serif;font-size: 13px;" type="date" id="myDate" value="2018-02-03">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+                                                                <div>
+                                                                    <div class="uk-margin">
+                                                                        <label class="uk-form-label" for="pointsTo">Взрослые</label>
+                                                                        <div class="uk-form-controls">
+                                                                            <select class="uk-select uk-form-small" style="font-family: 'Roboto', sans-serif;font-size: 13px;" name="adults">
+                                                                                <option>1</option>
+                                                                                <option>2</option>
+                                                                                <option>3</option>
+                                                                                <option>4</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="uk-margin">
+                                                                        <label class="uk-form-label" for="pointsTo">Дети</label>
+                                                                        <div class="uk-form-controls">
+                                                                            <select class="uk-select uk-form-small" style="font-family: 'Roboto', sans-serif;font-size: 13px;" name="children">
+                                                                                <option>0</option>
+                                                                                <option>1</option>
+                                                                                <option>2</option>
+                                                                                <option>3</option>
+                                                                                <option>4</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="uk-margin">
+                                                                <label class="uk-form-label" for="form-stacked-text">Ваш email адрес</label>
+                                                                <div class="uk-form-controls">
+                                                                    <input name="email" style="font-family: 'Roboto', sans-serif;font-size: 13px;" class="uk-input" type="email" required placeholder="Ответ будет выслан на этот адрес">
+                                                                </div>
+                                                            </div>
+                                                            <div class="uk-margin">
+                                                                <label class="uk-form-label" for="form-stacked-text">Комментарии и пожелания</label>
+                                                                <div class="uk-form-controls">
+                                                                    <textarea name="comment" style="font-family: 'Roboto', sans-serif;font-size: 13px;" class="uk-textarea" rows="5" placeholder="Если Вы хотите что-то уточните - напишите это сюда"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <button class="uk-button uk-button-default uk-modal-close" style="font-family: 'Kurale', sans-serif;font-size: 13px;" type="button">Отмена</button>
+                                                            <input class="uk-button uk-button-primary" style="font-family: 'Kurale', sans-serif;font-size: 13px;" type="submit" value="Подтвердить">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

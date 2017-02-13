@@ -19,7 +19,7 @@ class CreateHotelsTable extends Migration
 
 			$table->string( 'name_ru', 32 );
 			$table->string( 'name_en', 32 );
-			$table->tinyInteger( 'stars' );
+			$table->tinyInteger( 'stars' )->unsigned();
 			$table->string( 'address_ru', 32 );
 			$table->string( 'address_en', 32 );
 			$table->string( 'website', 32 );
@@ -41,8 +41,8 @@ class CreateHotelsTable extends Migration
 			$table->time( 'check_out' )->nullable();
 
 			$table->date( 'opened_in' )->nullable();
-			$table->tinyInteger( 'number_of_rooms' )->nullable();
-			$table->tinyInteger( 'number_of_floors' )->nullable();
+			$table->tinyInteger( 'number_of_rooms' )->nullable()->unsigned();
+			$table->tinyInteger( 'number_of_floors' )->nullable()->unsigned();
 
 			$table->boolean( 'wifi' )->default( FALSE );
 			$table->boolean( 'parking' )->default( FALSE );

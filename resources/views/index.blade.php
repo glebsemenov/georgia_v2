@@ -58,6 +58,10 @@
                 <div class="col-md-6 col-md-offset-3 text-center">
                     @if( Auth::guest() )
                         <a href="/signup" class="learn-more-btn">{{ trans('index.btn_gotoProfilePage') }}</a>
+                    @elseif( ! \App\Http\Controllers\PropertyController::isUserHasProperty( Auth::user()->id ) && Auth::user()->user_type_id == 2 )
+                        <a href="/property/register/" class="learn-more-btn">
+                            Добавить отель
+                        </a>
                     @elseif( \App\Http\Controllers\PropertyController::isUserHasProperty( Auth::user()->id ) )
                         <a href="{{ '/hotel/' . \App\Http\Controllers\PropertyController::getUserProperty( Auth::user()->id ) }}" class="learn-more-btn">
                             Управление отелем
@@ -303,22 +307,6 @@
                             <div class="col-md-4 wp5 delay-1s">
                                 <img src="img/team-03.png" alt="Team Member">
                                 <h2>Глеб Семенов</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ultricies nulla non
-                                    metus pulvinar imperdiet. Praesent non adipiscing libero.</p>
-                                <div class="social">
-                                    <ul class="social-buttons">
-                                        <li><a href="#" class="social-btn"><i class="fa fa-dribbble"></i></a></li>
-                                        <li><a href="#" class="social-btn"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="social-btn"><i class="fa fa-envelope"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="col-md-4 wp5 delay-1s">
-                                <img src="img/team-03.png" alt="Team Member">
-                                <h2>Андрей Рукавчук</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ultricies nulla non
                                     metus pulvinar imperdiet. Praesent non adipiscing libero.</p>
                                 <div class="social">

@@ -125,7 +125,7 @@
                         <div>
                             <div class="uk-inline">
                                 <span class="uk-form-icon uk-form-icon-flip"><i class="fa fa-user-o" aria-hidden="true"></i></span>
-                                <input class="uk-input" id="form-horizontal-text" name="number_of_rooms" type="number" min="1"  required autofocus>
+                                <input class="uk-input" id="form-horizontal-text" name="number_of_rooms" type="number" min="1" max="30"  required autofocus>
                             </div>
                         </div>
                     </div>

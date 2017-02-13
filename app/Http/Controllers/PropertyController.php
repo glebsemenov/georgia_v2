@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\RoomType;
 use DB;
 use Auth;
 use App\Models\City;
-use App\Models\PropertyType;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
+use App\Models\PropertyType;
 use App\Foundation\Property\PropertyHandler;
 
 class PropertyController extends Controller
@@ -22,8 +22,8 @@ class PropertyController extends Controller
 			$price = $this->getPriceRange( $input );
 			$rating = $this->getRating( $input );
 			$rooms = $this->getRooms( $input );
-			$adults = $this->getAdults( $input );
-			$children = $this->getChildren( $input );
+//			$adults = $this->getAdults( $input );
+//			$children = $this->getChildren( $input );
 
 			$markers = array_fill( 0, count( $propertyTypes ), '?' );
 			$markers = implode( ',', $markers );
@@ -161,7 +161,7 @@ class PropertyController extends Controller
 	public function showRegisterForm()
 	{
 		if( self::isUserHasProperty( Auth::user()->id ) )
-			return redirect('/');
+			return redirect( '/' );
 
 		$propertyTypes = PropertyType::all();
 		$cities = City::all();
@@ -172,13 +172,14 @@ class PropertyController extends Controller
 	public function register( Request $request )
 	{
 		if( self::isUserHasProperty( Auth::user()->id ) )
-			return redirect('/');
+			return redirect( '/' );
 
 		$handler = new PropertyHandler( 'hotel' );
+		$result = $handler->getInstance()->build( $request );
 
-		return $handler->getInstance()->build( $request )
-			? redirect()->back()->with( 'success', [ 'Отель был успешно создан. Внимание! Добавьте комнаты, чтобы он отображался в поиске!' ] )
-			: redirect()->back()->with( 'failure', [ 'Ошибка. Что-то пошло не так...' ] );
+		return $result[ 'success' ]
+			? redirect( '/hotel/' . $result[ 'id' ] )->with( 'success', [ 'Отель был успешно создан. Внимание! Добавьте комнаты, чтобы он отображался в поиске! <a href="/hotel/' . $result[ 'id' ] . '/">Перейти</a>' ] )
+			: redirect( '/property/register/' )->with( 'failure', [ 'Ошибка. Что-то пошло не так... (' . $result[ 'message' ] . ')' ] );
 	}
 
 	public static function isUserHasProperty( int $userID )
@@ -195,7 +196,8 @@ class PropertyController extends Controller
 		$params = array( $userID );
 
 		$result = DB::select( $sql, $params );
-		return ! empty( $result ) ? $result[0]->id : -1;
+
+		return ! empty( $result ) ? $result[ 0 ]->id : -1;
 	}
 
 	public function manage()
@@ -213,9 +215,20 @@ class PropertyController extends Controller
 	public function addRoom( Request $request )
 	{
 		$handler = new PropertyHandler( 'hotel' );
+		$result = $handler->getInstance()->addRoom( $request );
 
-		return $handler->getInstance()->addRoom( $request )
-			? redirect()->back()->with( 'success', [ 'Комната была успешно создана.' ] )
-			: redirect()->back()->with( 'failure', [ 'Ошибка. Что-то пошло не так...' ] );
+		return $result[ 'success' ]
+			? redirect( '/property/room/' . self::getUserProperty( Auth::user()->id ) )->with( 'success', [ 'Комната была успешно создана. <a href="/hotel/' . $result[ 'id' ] . '/">Вернуться к странице отеля</a>' ] )
+			: redirect( '/property/room/' . self::getUserProperty( Auth::user()->id ) )->with( 'failure', [ 'Ошибка. Что-то пошло не так...' ] );
+	}
+
+	public function bookRoom( Request $request )
+	{
+		$handler = new PropertyHandler( 'hotel' );
+		$result = $handler->getInstance()->bookRoom( $request );
+
+		return $result[ 'success' ]
+			? redirect( '/hotel/' . self::getUserProperty( Auth::user()->id ) )->with( 'success', [ 'Запрос на бронь успешно отправлен.' ] )
+			: redirect( '/hotel/' . self::getUserProperty( Auth::user()->id ) )->with( 'failure', [ 'Ошибка. Что-то пошло не так...' ] );
 	}
 }

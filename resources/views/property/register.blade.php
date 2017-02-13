@@ -42,7 +42,7 @@
     <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
         <div class="uk-alert-danger" uk-alert>
             <a class="uk-alert-close" uk-close></a>
-            <p>{!! \Session::get('failure') !!}</p>
+            <p>{!! \Session::get('failure')[0] !!}</p>
         </div>
     </div>
 @endif
@@ -269,8 +269,8 @@
                         </div>
                         <div style="text-align: left">
                             <div uk-form-custom="target: true">
-                                <input type="file" accept="image/*" name="image" id="image">
-                                <input class="uk-input uk-form-width-medium" type="text" placeholder="Нажмите здесь..." disabled>
+                                <input type="file" accept="image/*" name="image" id="image" required>
+                                <input class="uk-input uk-form-width-medium" type="text" placeholder="Нажмите здесь..." disabled required>
                             </div>
                         </div>
                     </div>

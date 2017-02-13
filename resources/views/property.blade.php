@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="uk-grid-match uk-grid-small" uk-grid>
-        <div class="uk-width-1-5@m uk-width-1-3@l">
+        <div class="uk-width-1-3@m">
             <div class="uk-card uk-card-default uk-card-body filter-bg">
                 <form method="GET" action="{{ url('/properties') }}">
                     <div class="uk-margin">
@@ -12,47 +12,47 @@
                             <input class="uk-input uk-form-small" id="form-stacked-text" type="text" placeholder="Поиск по всем городам по умолчанию">
                         </div>
                     </div>
-                    <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
-                        <div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="form-stacked-text">Заезд</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input uk-form-small" type="date" id="myDate" value="2017-02-03">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="form-stacked-text">Выезд</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input uk-form-small" type="date" id="myDate" value="2018-02-03">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{--<div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>--}}
+                        {{--<div>--}}
+                            {{--<div class="uk-margin">--}}
+                                {{--<label class="uk-form-label" for="form-stacked-text">Заезд</label>--}}
+                                {{--<div class="uk-form-controls">--}}
+                                    {{--<input class="uk-input uk-form-small" type="date" id="myDate" value="2017-02-03">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div>--}}
+                            {{--<div class="uk-margin">--}}
+                                {{--<label class="uk-form-label" for="form-stacked-text">Выезд</label>--}}
+                                {{--<div class="uk-form-controls">--}}
+                                    {{--<input class="uk-input uk-form-small" type="date" id="myDate" value="2018-02-03">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <hr class="uk-divider-icon">
                     <div class="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
                         <div>
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="pointsFrom">Цена от $<span id="priceFrom">0</span></label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-form-small" type="range" name="pointsFrom" id="pointsFrom" value="0" min="0" max="500" onmousemove="rangeValueFromChanged()">
+                                    <input class="uk-form-small" type="range" name="pointsFrom" id="pointsFrom" value="0" min="0" max="20000" onmousemove="rangeValueFromChanged()">
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div class="uk-margin">
-                                <label class="uk-form-label" for="pointsTo">Цена до $<span id="priceTo">500</span></label>
+                                <label class="uk-form-label" for="pointsTo">Цена до $<span id="priceTo">20000</span></label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-form-small" type="range" name="pointsTo" id="pointsTo" value="500" min="0" max="500" onmousemove="rangeValueToChanged()">
+                                    <input class="uk-form-small" type="range" name="pointsTo" id="pointsTo" value="20000" min="0" max="20000" onmousemove="rangeValueToChanged()">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="uk-margin uk-text-center">
-                        <label class="uk-form-label" for="rating">Средний рейтинг отеля: <span id="ratingDisplay">7</span></label>
+                        <label class="uk-form-label" for="rating">Средний рейтинг отеля: <span id="ratingDisplay">0</span></label>
                         <div class="uk-form-controls">
-                            <input class="uk-form-small" type="range" name="rating" id="rating" value="7" min="0" max="10" onmousemove="rangeRatingChanged()">
+                            <input class="uk-form-small" type="range" name="rating" id="rating" value="0" min="0" max="10" onmousemove="rangeRatingChanged()" readonly>
                         </div>
                     </div>
                     <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
@@ -69,33 +69,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="pointsTo">Взрослые</label>
-                                <div class="uk-form-controls">
-                                    <select class="uk-select uk-form-small" name="adults">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="pointsTo">Дети</label>
-                                <div class="uk-form-controls">
-                                    <select class="uk-select uk-form-small" name="children">
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div>--}}
+                            {{--<div class="uk-margin">--}}
+                                {{--<label class="uk-form-label" for="pointsTo">Взрослые</label>--}}
+                                {{--<div class="uk-form-controls">--}}
+                                    {{--<select class="uk-select uk-form-small" name="adults">--}}
+                                        {{--<option>1</option>--}}
+                                        {{--<option>2</option>--}}
+                                        {{--<option>3</option>--}}
+                                        {{--<option>4</option>--}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div>--}}
+                            {{--<div class="uk-margin">--}}
+                                {{--<label class="uk-form-label" for="pointsTo">Дети</label>--}}
+                                {{--<div class="uk-form-controls">--}}
+                                    {{--<select class="uk-select uk-form-small" name="children">--}}
+                                        {{--<option>0</option>--}}
+                                        {{--<option>1</option>--}}
+                                        {{--<option>2</option>--}}
+                                        {{--<option>3</option>--}}
+                                        {{--<option>4</option>--}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                     <hr class="uk-divider-icon">
                     <div class="uk-margin">
@@ -134,11 +134,10 @@
                     <div class="uk-margin uk-text-center">
                         <button type="submit" class="uk-button uk-button-danger">Применить</button>
                     </div>
-
                 </form>
             </div>
         </div>
-        <div class="uk-width-3-5@m uk-width-2-3@l preview-hotel-item">
+        <div class="uk-width-2-3@m preview-hotel-item">
             @foreach( $hotels as $hotel )
                 <div class="uk-card uk-card-default uk-card-body hotel-item">
                     <div class="uk-panel">
@@ -159,7 +158,9 @@
                     <div class="detail-view-link">
                         <a href="/hotel/{{ $hotel->id }}" class="hvr-shutter-out-horizontal">детальный обзор</a>
                     </div>
-                    <div class="hotel-price">Цены от ${{ \App\Http\Controllers\PropertyController::getLowestPrice( $hotel->id ) }}</div>
+                    <div class="hotel-price">
+                        Цены от ${{ \App\Http\Controllers\PropertyController::getLowestPrice( $hotel->id ) }}
+                    </div>
                 </div>
             @endforeach
         </div>

@@ -14,7 +14,7 @@ class CreateRoomsTable extends Migration
 
 			$table->decimal( 'price', 6 )->default( 1.00 );
 			$table->integer( 'count' )->default( 0 );
-			$table->tinyInteger( 'number_of_rooms' );
+			$table->tinyInteger( 'number_of_rooms' )->unsigned();
 			$table->text( 'description_ru' )->nullable();
 			$table->text( 'description_en' )->nullable();
 

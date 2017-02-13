@@ -1,5 +1,6 @@
 /node_modules
 /public/storage
+/public/img
 /vendor
 /.idea
 .DS_Store
