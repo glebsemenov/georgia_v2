@@ -19,12 +19,14 @@ Route::get( '/send', 'EmailController@send' );
 
 Route::get( '/properties', 'PropertyController@index' );
 
-Route::get( '/property/register', 'PropertyController@showRegisterForm' )->middleware('auth');;
-Route::get( '/property/manage', 'PropertyController@manage' )->middleware('auth');;
-Route::get( '/property/room/{id}', 'PropertyController@showAddRoomForm' )->middleware('auth');;
-Route::post( '/property/room', 'PropertyController@addRoom' )->middleware('auth');;
-Route::post( '/property/book', 'PropertyController@bookRoom' )->middleware('auth');;
-Route::post( '/property/register', 'PropertyController@register' )->middleware('auth');;
+Route::get( '/property/register', 'PropertyController@showRegisterForm' )->middleware('auth');
+Route::get( '/property/manage', 'PropertyController@manage' )->middleware('auth');
+Route::get( '/property/room/{id}', 'PropertyController@showAddRoomForm' )->middleware('auth');
+Route::post( '/property/room', 'PropertyController@addRoom' )->middleware('auth');
+Route::post( '/property/book', 'PropertyController@bookRoom' )->middleware('auth');
+Route::post( '/property/register', 'PropertyController@register' )->middleware('auth');
+
+Route::get( '/orders', 'AdminController@orders' )->middleware('auth');
 
 Route::get( '/account', 'AccountController@index' );
 
