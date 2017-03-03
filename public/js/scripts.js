@@ -140,4 +140,15 @@ $(window).load(function() {
 		}
 	});
 
+    $('#offerSlider').flexslider({
+        animation: "slide",
+        directionNav: false,
+        controlNav: true,
+        touch: true,
+        pauseOnHover: true,
+        start: function() {
+            $.waypoints('refresh');
+        }
+    });
+
 });

@@ -83,7 +83,7 @@
         </div>
     </div>
 </section>
-<section class="team text-center section-padding" id="features">
+<section class="features text-center section-padding" id="features">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -92,7 +92,7 @@
         </div>
         <div class="row">
             <div class="team-wrapper">
-                <div id="teamSlider">
+                <div id="offerSlider">
                     <ul class="slides">
                         <li>
                             <div class="col-md-4 wp5">
